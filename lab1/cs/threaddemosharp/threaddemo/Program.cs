@@ -7,18 +7,17 @@ namespace threaddemo
     {
         static void Main(string[] args)
         {
-            BreakHandler handler = new BreakHandler();
-            
             int cores = Environment.ProcessorCount;
+            bool[] flags = new bool[cores];
 
-            for (int i = 1; i < cores; i++)
+            for (int i = 0; i < cores; i++)
             {
-                MainThread mainThread = new MainThread(i, handler);
-                Thread thread = new Thread(mainThread.Run);
-                thread.Start();
+                int id = i + 1, idx = i;
+                MainThread worker = new MainThread(id, flags, idx);
+                new Thread(worker.Run).Start();
             }
 
-            handler.HoldSleep(15);
+            new Thread(new BreakThread(flags).Run).Start();
         }
     }
 }

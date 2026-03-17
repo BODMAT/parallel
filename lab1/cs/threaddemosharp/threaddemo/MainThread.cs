@@ -1,33 +1,35 @@
 using System;
+using System.Threading;
 
 namespace threaddemo
 {
     public class MainThread
     {
         private readonly int id;
-        private readonly BreakHandler handler;
+        private readonly bool[] flags;
+        private readonly int index;
 
-        public MainThread(int id, BreakHandler handler)
+        public MainThread(int id, bool[] flags, int index)
         {
             this.id = id;
-            this.handler = handler;
+            this.flags = flags;
+            this.index = index;
         }
 
         public void Run()
         {
-            long sum = 0;
-            long step = 0;
-            long stepVal = 2;
-            long count = 0;
+            long sum = 0, current = 0, step = id, count = 0;
+            DateTime startTime = DateTime.Now;
 
-            while (!handler.IsCanBreak)
+            while (!flags[index])
             {
-                step += stepVal;
-                sum += step;
+                sum += current;
+                current += step;
                 count++;
             }
 
-            Console.WriteLine($"Потік {id}: Сума = {sum}, Кількість ітерацій = {count}");
+            double elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+            Console.WriteLine($"Thread {id} | Sum: {sum} | Count: {count} | Time: {elapsed:F0}ms");
         }
     }
 }
