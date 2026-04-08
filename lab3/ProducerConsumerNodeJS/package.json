@@ -1,5 +1,5 @@
 {
-    "name": "thread-min-node",
+    "name": "producer-consumer-node",
     "version": "1.0.0",
     "scripts": {
         "build": "tsc",
