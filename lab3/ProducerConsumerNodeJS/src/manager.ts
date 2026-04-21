@@ -9,7 +9,7 @@
 
 export const IDX = { ACCESS: 0, FULL: 1, EMPTY: 2, WRITE: 3, READ: 4, PRODUCED: 5, SIZE: 6, BUFFER: 7 };
 
-export function createSharedState(storageSize: number, totalItems: number): SharedArrayBuffer {
+export function createSharedState(storageSize: number): SharedArrayBuffer {
     const buf = new SharedArrayBuffer((7 + storageSize) * Int32Array.BYTES_PER_ELEMENT);
     const arr = new Int32Array(buf);
 

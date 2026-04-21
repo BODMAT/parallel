@@ -25,17 +25,17 @@ namespace ProducerConsumer
             int produced = 0;
             while (produced < itemsToProduce)
             {
-                if (!manager.RegisterProduced()) break; // глобальний ліміт вичерпано
+                if (!manager.RegisterProduced()) break;
 
-                manager.Full.WaitOne();   // чекаю
-                manager.Access.WaitOne(); // взаємне виключення
+                manager.Full.WaitOne();
+                manager.Access.WaitOne();
 
                 string item = $"P{id}-item{produced}";
                 manager.Storage.Add(item);
                 Console.WriteLine($"[Producer-{id}] Added: {item}  | storage: {manager.Storage.Count}");
 
                 manager.Access.Release();
-                manager.Empty.Release();  // сигнал споживачу
+                manager.Empty.Release();
 
                 produced++;
                 Thread.Sleep(500);

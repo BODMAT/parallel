@@ -24,15 +24,15 @@ namespace ProducerConsumer
         {
             for (int i = 0; i < itemsToConsume; i++)
             {
-                manager.Empty.WaitOne();  // чекаємо наявного предмета
-                manager.Access.WaitOne(); // взаємне виключення
+                manager.Empty.WaitOne(); 
+                manager.Access.WaitOne();
 
                 string item = manager.Storage[0];
                 manager.Storage.RemoveAt(0);
                 Console.WriteLine($"[Consumer-{id}] Took: {item}  | storage: {manager.Storage.Count}");
 
                 manager.Access.Release();
-                manager.Full.Release();   // звільняємо місце
+                manager.Full.Release();
 
                 Thread.Sleep(800);
             }

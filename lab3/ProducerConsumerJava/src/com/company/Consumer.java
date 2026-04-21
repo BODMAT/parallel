@@ -16,15 +16,15 @@ public class Consumer implements Runnable {
     public void run() {
         for (int i = 0; i < itemsToConsume; i++) {
             try {
-                manager.empty.acquire();  // чекаю
+                manager.empty.acquire();  // чи є предмет в бефері
                 manager.access.acquire(); // вхід у критичну секцію (mutex)
 
-                String item = manager.storage.remove(0);
+                String item = manager.storage.remove(0); // забираю предмет
                 System.out.printf("[Consumer-%d] Took: %s  | storage: %d%n",
                         id, item, manager.storage.size());
 
-                manager.access.release();
-                manager.full.release();   // звільняю місце
+                manager.access.release(); // вихід з критичної секціі
+                manager.full.release();   // сигнал продюсеру
 
                 Thread.sleep(800);
             } catch (InterruptedException e) {

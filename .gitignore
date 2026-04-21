@@ -4,3 +4,37 @@
 
 node_modules
 dist
+
+# ===== Java =====
+*.class
+*.jar
+*.war
+*.ear
+out/
+target/
+
+# ===== C# / .NET =====
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.pubxml
+*.pubxml.user
+
+# ===== VS Code =====
+.vscode/
+
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Temp =====
+sources.txt
